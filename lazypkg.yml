@@ -28,4 +28,5 @@ movements:
   chmod: 755
 
 scripts:
-- pre_install: pre_install.sh
+- post_install: install-dependencies.sh
+- post_upgrade: install-dependencies.sh
