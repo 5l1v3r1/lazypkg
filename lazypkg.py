@@ -11,7 +11,7 @@ def get_sample_config(name = '{name}'):
         'license' : 'GPL',
         'website' : 'https://onionr.net',
         'contact' : 'contact@onionr.net',
-        'author' : 'Kevin Froman',
+        'maintainer' : 'Kevin Froman',
 
         'sources' : [
             {'git' : 'https://gitlab.com/beardog/onionr.git', 'branch' : 'master'}
@@ -115,6 +115,7 @@ def filter_depends(mode, config, build = None, required = None):
             for test_mode in ['deb', 'pkgbuild', 'rpm']:
                 if test_mode in depend:
                     filtered.append(depend[test_mode])
+                    break
 
     return filtered
 
@@ -144,6 +145,7 @@ def prepare_package(mode, config, path):
 
         # post_install or pre_install use install directive: https://bbs.archlinux.org/viewtopic.php?id=39903
         # more docs: https://wiki.archlinux.org/index.php/creating_packages#prepare()
+        # todo figure out about "maintainer"
         
         sources += '''
 prepare() {
