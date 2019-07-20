@@ -30,8 +30,11 @@ if __name__ == '__main__':
                 mode = 'rpm'
             elif command.startswith('d'): # deb
                 mode = 'deb'
-            else: # pkgbuild (default, because arch is epic)
+            elif command.startswith('p'): # pkgbuild (default, because arch is epic)
                 mode = 'pkgbuild'
+            else:
+                print('try `%s help`' % sys.argv[0])
+                exit(1)
 
             print('preparing %s configs...' % mode)
 
