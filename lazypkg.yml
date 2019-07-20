@@ -23,7 +23,7 @@ movements:
 - '.': /usr/share/lazypkg
   chown: root:root
   chmod: 755
-- lazypkg: /usr/bin/lazypkg
+- lazypkg: /usr/bin/
   chown: root:root
   chmod: 755
 

@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     config_file = '%s.yml' % name
 
-    if not lazypkg.check(config_file):
+    if not lazypkg.check_file(config_file):
         print('goodbye!')
         exit(1)
 
