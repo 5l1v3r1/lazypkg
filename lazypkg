@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f "/usr/share/lazypkg/main.py" ]; then
+    python3 /usr/share/lazypkg/main.py "$@"
+else
+    python3 main.py "$@"
+fi

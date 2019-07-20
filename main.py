@@ -9,11 +9,12 @@ if __name__ == '__main__':
         command = sys.argv[1].lower().strip().replace('-', '')
 
         if command.startswith('h'): # help
-            print('lazypkg v%s - by arinerron\n\nusage:\n%s <command> <config.yml>\n\ncommands:\nhelp - get help\nrpm - build rpm package\ndeb - build deb package\npkgbuild - build pkgbuild package' % (sys.argv[0], version))
+            print('lazypkg v%s - by arinerron\n\nusage:\n%s <command> <config.yml>\n\ncommands:\nhelp - get help\nrpm - build rpm package\ndeb - build deb package\npkgbuild - build pkgbuild package' % (version, sys.argv[0]))
             exit()
         else:
             if len(sys.argv) != 3:
                 print('usage:\n%s %s <config.yml>' % (sys.argv[0], sys.argv[1]))
+                exit(1)
             
             config_file = sys.argv[2]
             path = os.path.dirname(config_file)
@@ -34,12 +35,12 @@ if __name__ == '__main__':
 
             print('preparing %s configs...' % mode)
 
-            lazypkg.prepare_package(mode, config_contents, path)
+            output = lazypkg.prepare_package(mode, config_contents, path)
 
-            print('package prepared at %s' % path)
+            print('package prepared at %s' % output)
 
-            if input('\nbuild %s now (y/N)?' % mode).lower().strip() == 'y':
-                output = lazypkg.build_package(mode, path)
+            if input('\nbuild %s now (y/N)? ' % mode).lower().strip() == 'y':
+                output = lazypkg.build_package(mode, config_contents, path)
 
                 print('packge built at %s' % output)
 
@@ -60,10 +61,9 @@ if __name__ == '__main__':
 
     config_file = '%s.yml' % name
 
-    if os.path.isfile(config_file):
-        if input('config file %s already exists, overwrite (y/N)? ' % config_file).lower().strip() != 'y':
-            print('goodbye!')
-            exit(1)
+    if not lazypkg.check(config_file):
+        print('goodbye!')
+        exit(1)
 
     with open('%s.yml' % name, 'w') as f:
         f.write(lazypkg.get_sample_config(name = name))

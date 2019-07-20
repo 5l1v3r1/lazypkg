@@ -1,0 +1,31 @@
+name: lazypkg-git
+version: 1.0
+release: 1
+summary: a cross-distro package generator
+license: GPL
+website: https://github.com/Arinerron/lazypkg
+contact: lazypkg@aaronesau.com
+maintainer: Aaron Esau
+
+sources:
+- git: https://github.com/Arinerron/lazypkg.git
+  branch: master
+
+dependencies:
+- deb: python3.7
+  pkgbuild: python
+- deb: python3-pip
+  pkgbuild: python-pip
+- deb: rsync
+  pkgbuild: rsync
+
+movements:
+- '.': /usr/share/lazypkg
+  chown: root:root
+  chmod: 755
+- lazypkg: /usr/bin/lazypkg
+  chown: root:root
+  chmod: 755
+
+scripts:
+- pre_install: pre_install.sh
